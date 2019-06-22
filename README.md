@@ -1,5 +1,9 @@
-##### Example
+##### Installation
+```commandline
+pip install git+https://github.com/0xf0f/quicktest
+```
 
+##### Example
 ```python
 from quicktest import TestList
 
