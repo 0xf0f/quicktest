@@ -1,4 +1,5 @@
-A python module for writing and running tests.
+##### Example
+
 ```python
 from quicktest import TestList
 
@@ -24,7 +25,7 @@ with open('test_results.txt') as file:
 
 ```
 
-output:
+##### Output
 ```commandline
 2019-06-22 13:55:01.382579
 Example Tests - test_1 - succeeded
@@ -38,5 +39,4 @@ AssertionError
 
 Example Tests - test_3 - succeeded
 Example Tests - 2 out of 3 tests succeeded.
-
 ```

@@ -8,5 +8,5 @@ setup(
     license='MIT',
     author='0xf0f',
     author_email='',
-    description='A python module for writing and running tests.'
+    description='a python module for writing and running tests'
 )
