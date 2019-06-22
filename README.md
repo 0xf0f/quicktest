@@ -26,16 +26,17 @@ with open('test_results.txt') as file:
 
 output:
 ```commandline
-2019-06-22 13:46:38.789699
-Example Tests - test_1 - succeeded with return value None
-Example Tests - test_2 - failed with return value None
+2019-06-22 13:55:01.382579
+Example Tests - test_1 - succeeded
+Example Tests - test_2 - failed
 Traceback (most recent call last):
   File "C:\Users\admin\Documents\Projects\quicktest\quicktest\test_run.py", line 17, in run
     self.return_value = self.test.method()
-  File "C:/Users/admin/Documents/Projects/quicktest/examples/readme_test.py", line 13, in test_2
+  File "C:/Users/admin/Documents/Projects/quicktest/examples/readme_example.py", line 13, in test_2
     assert 1 + 1 == 3
 AssertionError
 
-Example Tests - test_3 - succeeded with return value None
+Example Tests - test_3 - succeeded
 Example Tests - 2 out of 3 tests succeeded.
+
 ```
