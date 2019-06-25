@@ -12,9 +12,9 @@ class TestRun:
     def succeeded(self):
         return self.completed and not self.error
 
-    def run(self):
+    def run(self, *args, **kwargs):
         try:
-            self.return_value = self.test.method()
+            self.return_value = self.test.method(*args, **kwargs)
         except:
             self.error = format_exc()
 

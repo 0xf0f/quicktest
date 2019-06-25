@@ -26,7 +26,7 @@ class TestList:
 
     test = add_test_from_method
 
-    def run(self, out=sys.stdout):
+    def run(self, *args, out=sys.stdout, **kwargs):
         print(
             datetime.datetime.now(),
             file=out
@@ -35,7 +35,7 @@ class TestList:
         tests_succeeded = 0
         for test in self.tests:
             test_run = TestRun(test)
-            test_run.run()
+            test_run.run(*args, **kwargs)
 
             if test_run.succeeded():
                 result = 'succeeded'
