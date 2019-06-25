@@ -1,5 +1,5 @@
 import sys
-import datetime
+import time
 
 from quicktest.test import Test
 from quicktest.test_run import TestRun
@@ -28,41 +28,41 @@ class TestList:
 
     def run(self, *args, out=sys.stdout, **kwargs):
         print(
-            datetime.datetime.now(),
+            self.name, '-',
+            time.strftime('%Y-%m-%d %H:%M:%S'),
             file=out
         )
 
-        tests_succeeded = 0
+        failed_tests = []
+
         for test in self.tests:
             test_run = TestRun(test)
             test_run.run(*args, **kwargs)
 
             if test_run.succeeded():
                 result = 'succeeded'
-                tests_succeeded += 1
             else:
                 result = 'failed'
+                failed_tests.append(test_run)
 
             print(
-                self.name, '-', test.name, '-', result,
+                test.name, '-', result,
                 # 'with return value', test_run.return_value,
                 file=out
             )
 
-            if test_run.error:
-                print(
-                    test_run.error,
-                    file=out
-                )
-
         print(
-            self.name, '-',
-            tests_succeeded, 'out of', len(self.tests),
+            len(self.tests)-len(failed_tests), 'out of', len(self.tests),
             'tests succeeded.',
             file=out
         )
 
-        if tests_succeeded == len(self.tests):
-            return True
-        else:
-            return False
+        if failed_tests:
+            print(file=out)
+            print('Failures:', file=out)
+
+            for test_run in failed_tests:
+                print(test_run.error)
+
+        return bool(failed_tests)
+
