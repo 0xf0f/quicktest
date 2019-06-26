@@ -19,3 +19,8 @@ def test_3():
 
 
 example_tests.run()
+
+# or to write results to a file:
+with open('test_results.txt', 'w') as file:
+    example_tests.run(out=file)
+
