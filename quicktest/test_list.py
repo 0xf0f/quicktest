@@ -62,7 +62,7 @@ class TestList:
             print('Failures:', file=out)
 
             for test_run in failed_tests:
-                print(test_run.error)
+                print(test_run.error, file=out)
 
         return bool(failed_tests)
 
