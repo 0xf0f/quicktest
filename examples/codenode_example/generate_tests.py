@@ -1,7 +1,7 @@
 """
 This example demonstrates how to generate some test placeholders.
 It requires codenode to run:
-
+        https://github.com/0xf0f/codenode
 """
 
 import codenode as cn
