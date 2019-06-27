@@ -1,7 +1,7 @@
 """
 This example demonstrates how to generate some test placeholders.
 It requires codenode to run:
-
+        https://github.com/0xf0f/codenode
 """
 
 import codenode as cn
@@ -64,5 +64,5 @@ if __name__ == '__main__':
     print(generated_tests.dumps())
 
     # or to save to a file:
-    with open('generated_tests.py', 'w') as file:
+    with open('output.py', 'w') as file:
         generated_tests.dump(file)
