@@ -3,6 +3,7 @@ import time
 
 from quicktest.test import Test
 from quicktest.test_run import TestRun
+from typing import Callable, Union
 
 
 class TestList:
@@ -13,18 +14,22 @@ class TestList:
     def add_test(self, test: Test):
         self.tests.append(test)
 
-    def add_test_from_method(self, method, name=None):
-        if name is None:
-            name = method.__name__
+    def test(self, name_or_method: Union[str, Callable]):
+        if callable(name_or_method):
+            new_test = Test()
+            new_test.name = name_or_method.__name__
+            new_test.method = name_or_method
+            self.add_test(new_test)
+            return name_or_method
 
-        new_test = Test()
-        new_test.method = method
-        new_test.name = name
-
-        self.add_test(new_test)
-        return method
-
-    test = add_test_from_method
+        elif isinstance(name_or_method, str):
+            def wrapper(func):
+                new_test = Test()
+                new_test.name = name_or_method
+                new_test.method = func
+                self.add_test(new_test)
+                return func
+            return wrapper
 
     def run(self, *args, out=sys.stdout, **kwargs):
         print(
@@ -44,6 +49,7 @@ class TestList:
             else:
                 result = 'failed'
                 failed_tests.append(test_run)
+                print('*', end='', file=out)
 
             print(
                 test.name, '-', result,
@@ -52,8 +58,8 @@ class TestList:
             )
 
         print(
-            len(self.tests)-len(failed_tests), 'out of', len(self.tests),
-            'tests succeeded.',
+            len(self.tests)-len(failed_tests),
+            'out of', len(self.tests), 'tests succeeded.',
             file=out
         )
 
@@ -62,6 +68,7 @@ class TestList:
             print('Failures:', file=out)
 
             for test_run in failed_tests:
+                print(test_run.test.name, file=out)
                 print(test_run.error, file=out)
 
         return bool(failed_tests)
