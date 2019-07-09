@@ -58,8 +58,8 @@ class TestList:
             )
 
         print(
-            len(self.tests)-len(failed_tests), 'out of', len(self.tests),
-            'tests succeeded.',
+            len(self.tests)-len(failed_tests),
+            'out of', len(self.tests), 'tests succeeded.',
             file=out
         )
 
