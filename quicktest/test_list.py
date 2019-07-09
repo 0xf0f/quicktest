@@ -3,6 +3,7 @@ import time
 
 from quicktest.test import Test
 from quicktest.test_run import TestRun
+from typing import Callable, Union
 
 
 class TestList:
@@ -13,18 +14,22 @@ class TestList:
     def add_test(self, test: Test):
         self.tests.append(test)
 
-    def add_test_from_method(self, method, name=None):
-        if name is None:
-            name = method.__name__
+    def test(self, name_or_method: Union[str, Callable]):
+        if callable(name_or_method):
+            new_test = Test()
+            new_test.name = name_or_method.__name__
+            new_test.method = name_or_method
+            self.add_test(new_test)
+            return name_or_method
 
-        new_test = Test()
-        new_test.method = method
-        new_test.name = name
-
-        self.add_test(new_test)
-        return method
-
-    test = add_test_from_method
+        elif isinstance(name_or_method, str):
+            def wrapper(func):
+                new_test = Test()
+                new_test.name = name_or_method
+                new_test.method = func
+                self.add_test(new_test)
+                return func
+            return wrapper
 
     def run(self, *args, out=sys.stdout, **kwargs):
         print(
