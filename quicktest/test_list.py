@@ -44,6 +44,7 @@ class TestList:
             else:
                 result = 'failed'
                 failed_tests.append(test_run)
+                print('*', end='', file=out)
 
             print(
                 test.name, '-', result,
